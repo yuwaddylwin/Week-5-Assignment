@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Changer</title>
+    <script>
+        function getRandomColor() {
+            const r = Math.floor(Math.random() * 256);  // Red
+            const g = Math.floor(Math.random() * 256);  // Green
+            const b = Math.floor(Math.random() * 256);  // Blue
+            return `rgb(${r}, ${g}, ${b})`;  
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            document.getElementById('colors').onclick = function() {
+                const randomColor = getRandomColor();
+                document.body.style.backgroundColor = randomColor;
+                document.getElementById('color-display').innerText = `Background Color: ${randomColor}`;  
+            }
+        });
+    </script>
+</head>
+<body>
+    <button id="colors">Change Background Color</button>
+    <div id="color-display"  style="text-align: center;"></div> 
+</body>
+</html>

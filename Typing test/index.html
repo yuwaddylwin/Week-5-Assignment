@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Test with Countdown Timer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const typingArea = document.getElementById('typingArea');
+    const timerDisplay = document.getElementById('timer');
+    const resultDisplay = document.getElementById('result');
+    let timeLeft = 30;
+    let timer;
+    let isTimerRunning = false;
+
+
+    // Start the countdown timer
+    function startTimer() {
+        if (!isTimerRunning) {
+            isTimerRunning = true;
+            timer = setInterval(() => {
+                timeLeft--;
+                timerDisplay.textContent = `Time left: ${timeLeft} seconds`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    typingArea.disabled = true;
+                    evaluateTyping();
+                }
+            }, 1000);
+        }
+    }
+
+    // Evaluate the typed text
+    function evaluateTyping() {
+        const typedText = typingArea.value.trim();
+        const words = typedText.split(/\s+/); // Split text into words
+        const totalWords = words.length;
+
+        
+
+        // Display results
+        resultDisplay.innerHTML = `
+            <p>Total words typed: ${totalWords}</p>
+        `;
+        
+    }
+
+    // Start the timer when the user begins typing
+    typingArea.addEventListener('input', () => {
+        if (!isTimerRunning) {
+            startTimer();
+        }
+    });
+});
+</script>
+<body>
+    <h1>Typing Test</h1>
+    <p>Type as many words as you can in 30 seconds!</p>
+    <textarea id="typingArea" placeholder="Start typing here..."></textarea>
+    <div id="timer">Time left: 30 seconds</div>
+    <div id="result"></div>
+
+</body>
+</html>

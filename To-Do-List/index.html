@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do List</title>
+</head>
+<style>
+    .done {
+        text-decoration: line-through;
+    }
+    .done-btn{
+        color: green;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function(){
+        document.getElementById('add_btn').onclick = function(){
+            const taskInput = document.getElementById('taskInput');
+            const taskValue = taskInput.value.trim();
+
+            if (taskValue) {
+                const taskList = document.getElementById('taskList');
+
+                // Create new task element
+                const li = document.createElement('li');
+                li.textContent = taskValue;
+
+                //Done 
+                const doneButton = document.createElement('button');
+                doneButton.textContent = 'Mark as Done';
+                doneButton.classList.add('done-btn');
+                doneButton.onclick = function() {
+                    li.classList.toggle('done');  
+                };
+
+                // Create delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.classList.add('delete-btn');
+                deleteButton.onclick = function() {
+                    taskList.removeChild(li);
+                };
+                
+                li.appendChild(doneButton);
+                li.appendChild(deleteButton);
+                taskList.appendChild(li);
+
+                // Clear the input field
+                taskInput.value = '';
+            }
+        }
+    });
+</script>
+<body>
+    <h2>To-Do List</h2>
+    <input type="text" id="taskInput" placeholder="Enter a new task">
+    <button id="add_btn">Add</button>
+
+    <ul id="taskList"></ul>
+</body>
+</html>

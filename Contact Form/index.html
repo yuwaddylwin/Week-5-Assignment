@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        .error {
+            color: red;
+            display: none;
+        }
+        .success {
+            color: green;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Contact Form</h1>
+    <form id="contactForm">
+        <input type="text" id="name" placeholder="Name"><br><br>
+        <input type="email" id="email" placeholder="Email"><br><br>
+        <textarea id="message" placeholder="Your message here"></textarea><br><br>
+        <button type="submit">Submit</button>
+    </form>
+
+    <p id="error" class="error">Please fill in all fields and provide a valid email address.</p>
+    <p id="success" class="success">Form submitted successfully!</p>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the form from submitting automatically
+            
+            // Get form values
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const message = document.getElementById("message").value;
+            const errorElement = document.getElementById("error");
+            const successElement = document.getElementById("success");
+            
+            // Basic validation
+            if (name === "" || email === "" || message === "") {
+                errorElement.style.display = "block";
+                successElement.style.display = "none";
+                return;
+            }
+
+            // Email format validation
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                errorElement.style.display = "block";
+                successElement.style.display = "none";
+                return;
+            }
+
+            // Hide error, show success
+            errorElement.style.display = "none";
+            successElement.style.display = "block";
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Lightbox effect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const closeBtn = document.querySelector('.close-btn');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    const images = document.querySelectorAll('.image_container img');
+    let currentIndex = 0;
+
+    // Open lightbox and set the clicked image
+    images.forEach((image, index) => {
+        image.addEventListener('click', () => {
+            currentIndex = index;
+            lightboxImg.src = image.src;
+            lightbox.style.display = 'flex';
+        });
+    });
+
+    // Close lightbox
+    function closeLightbox() {
+        lightbox.style.display = 'none';
+    }
+
+    // Navigate to the previous image
+    function showPrevImage() {
+        currentIndex = (currentIndex - 1 + images.length) % images.length;
+        lightboxImg.src = images[currentIndex].src;
+    }
+
+    // Navigate to the next image
+    function showNextImage() {
+        currentIndex = (currentIndex + 1) % images.length;
+        lightboxImg.src = images[currentIndex].src;
+    }
+
+    // Close lightbox when clicking outside the image or on the close button
+    lightbox.addEventListener('click', function(event) {
+        if (event.target !== lightboxImg && event.target !== prevBtn && event.target !== nextBtn) {
+            closeLightbox();
+        }
+    });
+
+    // Close lightbox when clicking the close button
+    closeBtn.addEventListener('click', closeLightbox);
+
+    // Navigate to the previous image when clicking the previous button
+    prevBtn.addEventListener('click', showPrevImage);
+
+    // Navigate to the next image when clicking the next button
+    nextBtn.addEventListener('click', showNextImage);
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function(event) {
+        if (lightbox.style.display === 'flex') {
+            if (event.key === 'ArrowLeft') {
+                showPrevImage();
+            } else if (event.key === 'ArrowRight') {
+                showNextImage();
+            } else if (event.key === 'Escape') {
+                closeLightbox();
+            }
+        }
+    });
+});
+</script>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery with Lightbox Effect</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Image Gallery with LightBox Effect</h1>
+    <div class="image_container">
+        <img src="images/dog1.jpeg" alt="dog">
+        <img src="images/dog2.jpeg" alt="dog">
+        <img src="images/dog3.jpeg" alt="dog">
+        <img src="images/dog4.jpeg" alt="dog">
+        <img src="images/dog5.jpeg" alt="dog">
+    </div>
+
+    <!-- Lightbox element -->
+    <div id="lightbox" class="lightbox">
+        <span class="close-btn">&times;</span>
+        <button class="nav-btn prev-btn">&lt;</button>
+        <img id="lightboxImg" src="" alt="Expanded view">
+        <button class="nav-btn next-btn">&gt;</button>
+    </div>
+
+</body>
+</html>
+
+</body>
+</html>
